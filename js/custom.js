@@ -61,9 +61,9 @@
     TimeLine
     ................................................. */
 	$('.timeLine').timeLine({
-        mainColor: '#890025',
+        mainColor: '#90B1DB',
         opacity: '0.85',
-        lineColor: '#890025'
+        lineColor: '#90B1DB'
     });
 	
 	
@@ -113,27 +113,30 @@
     Countdown Clock
     ................................................. */
 	function makeTimer() {
-		var endTime = new Date("01 June 2019 10:45:00 GMT+01:00");			
-		endTime = (Date.parse(endTime) / 1000);
+	var endTime = new Date("30 November 2025 15:00:00 GMT+01:00"); // Fecha objetivo
+    var endTimeStamp = Date.parse(endTime) / 1000;
 
-		var now = new Date();
-		now = (Date.parse(now) / 1000);
+    var now = new Date();
+    var nowTimeStamp = Date.parse(now) / 1000;
 
-		var timeLeft = endTime - now;
+    var timeLeft = endTimeStamp - nowTimeStamp;
 
-		var days = Math.floor(timeLeft / 86400); 
-		var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
-		var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
-		var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
+    var days = Math.floor(timeLeft / 86400); // 1 día = 86400 segundos
+    var hours = Math.floor((timeLeft % 86400) / 3600);
+    var minutes = Math.floor((timeLeft % 3600) / 60);
+    var seconds = Math.floor(timeLeft % 60);
 
-		if (hours < "10") { hours = "0" + hours; }
-		if (minutes < "10") { minutes = "0" + minutes; }
-		if (seconds < "10") { seconds = "0" + seconds; }
+    // Formatear con ceros a la izquierda
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-		$("#days").html(days + "<h6>Days</h6>");
-		$("#hours").html(hours + "<h6>Hrs</h6>");
-		$("#minutes").html(minutes + "<h6>Min</h6>");
-		$("#seconds").html(seconds + "<h6>Sec</h6>");
+    // Insertar en HTML
+    $("#days").html(days + "<h6 style='color: black;'>Days</h6>");
+    $("#hours").html(hours + "<h6 style='color: black;'>Hrs</h6>");
+    $("#minutes").html(minutes + "<h6 style='color: black;'>Min</h6>");
+    $("#seconds").html(seconds + "<h6 style='color: black;'>Sec</h6>");
+
 	}
 	setInterval(function() { makeTimer(); }, 1000);
 
